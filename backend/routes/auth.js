@@ -45,4 +45,8 @@ router.get("/profile", authenticateToken, (req, res) => {
   res.status(200).json({ message: `Welcome, ${req.user.username}!` });
 });
 
+router.post("/logout", authenticateToken, (req, res) => {
+  res.status(200).json({ message: "Logged out successfully. Please remove the token from your client." });
+});
+
 module.exports = router;
