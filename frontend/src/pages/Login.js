@@ -6,13 +6,13 @@ function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [showToast, setShowToast] = useState(false); // To control toast visibility
+  const [showToast, setShowToast] = useState(false); 
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
     if (location.state?.sessionExpired) {
-      setShowToast(true); // Show toast when redirected due to session expiration
+      setShowToast(true); 
     }
   }, [location.state]);
 
@@ -27,8 +27,8 @@ function Login() {
           Authorization: `Bearer ${process.env.REACT_APP_FIXED_TOKEN}`,
         },
       });
-      localStorage.setItem("token", response.data.token); // Save token to localStorage
-      navigate("/main"); // Redirect to main page
+      localStorage.setItem("token", response.data.token); 
+      navigate("/main"); 
     } catch (err) {
       setError(err.response?.data?.error || "Login failed");
     }

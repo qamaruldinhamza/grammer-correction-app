@@ -21,7 +21,7 @@ function Register() {
       });
 
 
-      navigate("/"); // Redirect to login page
+      navigate("/"); 
     } catch (err) {
       setError(err.response?.data?.error || "Registration failed");
     }

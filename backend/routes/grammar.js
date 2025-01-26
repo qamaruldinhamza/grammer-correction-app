@@ -38,7 +38,6 @@ router.post("/", checkAuthorization, async (req, res) => {
       return res.status(500).json({ error: "Failed to generate a response." });
     }
 
-    // Extract corrected and highlighted text from the AI's response
     const [correctedText, highlightedText] = responseContent.split("\n\n");
     
     res.status(200).json({

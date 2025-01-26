@@ -13,7 +13,7 @@ function MainPage() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
-      navigate("/"); // Redirect to login page if no token
+      navigate("/");
     }
   }, [navigate]);
 
@@ -33,26 +33,23 @@ function MainPage() {
         }
       );
   
-      // Extract correctedText and highlightedText after `:`
       let correctedText = response.data.correctedText.split(':')[1]?.trim() || "No corrections made.";
       let highlightedHTML = response.data.highlightedText.split(':')[1]?.trim() || "No highlights available.";
 
-      // Remove surrounding double quotes if present
       correctedText = correctedText.replace(/^"(.*)"$/, "$1");  
       highlightedHTML = highlightedHTML.replace(/^"(.*)"$/, "$1");
   
   
-      setText(correctedText); // Replace the input text with corrected text
-      setHighlightedText(highlightedHTML); // Update highlighted text output
-      setCorrectedText(correctedText); // Update corrected text output
+      setText(correctedText); 
+      setHighlightedText(highlightedHTML); 
+      setCorrectedText(correctedText); 
     } catch (err) {
       const errorMessage = err.response?.data?.error || "Grammar check failed";
       setError(errorMessage);
   
-      // Handle token expiration or invalid token
       if (err.response?.status === 401 || err.response?.status === 400) {
-        localStorage.removeItem("token"); // Remove invalid token
-        navigate("/", { state: { sessionExpired: true } }); // Redirect with sessionExpired state
+        localStorage.removeItem("token"); 
+        navigate("/", { state: { sessionExpired: true } }); 
       }
     } finally {
       setLoading(false);
@@ -61,12 +58,11 @@ function MainPage() {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    navigate("/"); // Redirect to login page
+    navigate("/"); 
   };
 
   return (
     <div className="container mt-5">
-      {/* Logout Button */}
       <div className="d-flex justify-content-end">
         <button className="btn btn-danger mb-3" onClick={handleLogout}>
           Logout
@@ -80,7 +76,6 @@ function MainPage() {
               <h2 className="text-center mb-4">Grammar Correction</h2>
               {error && <p className="text-danger text-center">{error}</p>}
 
-              {/* Show Corrected Text and Output only after response */}
               {correctedText && (
                 <div className="mb-4">
                   <h3 className="text-center">Corrected Text</h3>
